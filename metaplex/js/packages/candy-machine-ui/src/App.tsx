@@ -12,7 +12,7 @@ import {
   getSolletExtensionWallet,
   getSolletWallet,
 } from '@solana/wallet-adapter-wallets';
-
+import { Routes, Route } from 'react-router-dom';
 import {
   ConnectionProvider,
   WalletProvider,
@@ -20,6 +20,7 @@ import {
 import { WalletDialogProvider } from '@solana/wallet-adapter-material-ui';
 
 import { createTheme, ThemeProvider } from '@material-ui/core';
+import FullApp from './FullApp';
 
 const theme = createTheme({
   palette: {
@@ -72,14 +73,30 @@ const App = () => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletDialogProvider>
-            <Home
+            <FullApp />
+            <Routes>
+              <Route
+                path="/mint"
+                element={
+                  <Home
+                    candyMachineId={candyMachineId}
+                    connection={connection}
+                    txTimeout={DEFAULT_TIMEOUT}
+                    rpcHost={rpcHost}
+                    network={network}
+                    error={error}
+                  />
+                }
+              />
+            </Routes>
+            {/* <Home
               candyMachineId={candyMachineId}
               connection={connection}
               txTimeout={DEFAULT_TIMEOUT}
               rpcHost={rpcHost}
               network={network}
               error={error}
-            />
+            /> */}
           </WalletDialogProvider>
         </WalletProvider>
       </ConnectionProvider>

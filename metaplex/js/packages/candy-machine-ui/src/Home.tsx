@@ -73,6 +73,19 @@ const Home = (props: HomeProps) => {
   const [needTxnSplit, setNeedTxnSplit] = useState(true);
   const [setupTxn, setSetupTxn] = useState<SetupState>();
 
+    const changeIframeZIndex = () => {
+      const iFrames = document.getElementsByTagName('iframe');
+      if (iFrames && iFrames.length > 1) {
+        iFrames[1].style.zIndex = '-9999';
+      }
+    };
+
+    useEffect(() => {
+      setInterval(function () {
+        changeIframeZIndex();
+      }, 1000); // 1000 milliseconds
+    }, []);
+  
   const rpcUrl = props.rpcHost;
   const wallet = useWallet();
   const cluster = props.network;
